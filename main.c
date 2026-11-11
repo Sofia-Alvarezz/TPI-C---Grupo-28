@@ -4,6 +4,13 @@
 int main() {
     int opcion;
     EstadoCohete_t cohete;
+
+    Configuracion_t config = {
+    ACELERACION_FASE1,
+    ACELERACION_FASE2,
+    ALTURA_APAGADO
+    };
+
     double alturaMaxima;
     double aceleracionMaxima;
     int simulacionRealizada = 0;
@@ -20,22 +27,67 @@ int main() {
         scanf("%d", &opcion);
 
         switch (opcion) {
-            case 1:
-             printf("Configurar lanzamiento\n");
-             break;
+            
+            case 1: {
+             Configuracion_t nuevaConfig;
+             int datosValidos = 1;
+             double alturaFase1;
 
+            printf("\n=== CONFIGURAR LANZAMIENTO ===\n");
+
+            printf("Aceleracion primera fase (m/s2): ");
+            if (scanf("%lf", &nuevaConfig.aceleracionFase1) != 1) {
+             datosValidos = 0;
+            }
+
+            if (datosValidos) {
+             printf("Aceleracion segunda fase (m/s2): ");
+             if (scanf("%lf", &nuevaConfig.aceleracionFase2) != 1) {
+              datosValidos = 0;
+             }
+            }
+
+            if (datosValidos) {
+             printf("Altura de apagado (m): ");
+             if (scanf("%lf", &nuevaConfig.alturaApagado) != 1) {
+              datosValidos = 0;
+             }
+            }
+
+            if (datosValidos) {
+             alturaFase1 = ALTURA_INICIAL + VELOCIDAD_INICIAL * TIEMPO_FASE1 + 0.5 * nuevaConfig.aceleracionFase1 * TIEMPO_FASE1 * TIEMPO_FASE1;
+             if (nuevaConfig.aceleracionFase1 > 0 &&
+             nuevaConfig.aceleracionFase2 > 0 &&
+             nuevaConfig.alturaApagado > alturaFase1) {
+             config = nuevaConfig;
+             simulacionRealizada = 0;
+             printf("\nConfiguracion guardada correctamente.\n");
+             } else {
+             printf("\nError: los valores no son validos.\n");
+             printf("Las aceleraciones deben ser positivas y la altura\n");
+             printf("de apagado debe superar la altura de la primera fase.\n");
+             }
+            } else {
+             printf("\nError: debe ingresar valores numericos.\n");
+             int caracter;
+             while ((caracter = getchar()) != '\n' && caracter != EOF) {
+             }
+            }
+            break;
+            }
             
             case 2:
-             calcularFase1(&cohete);
-             calcularFase2(&cohete);
+             calcularFase1(&cohete, &config);
+             calcularFase2(&cohete, &config);
 
              alturaMaxima = calcularAlturaMaxima(&cohete);
-             aceleracionMaxima = calcularAceleracionMaxima();
+             aceleracionMaxima = calcularAceleracionMaxima(&config);
 
              simulacionRealizada = 1;
 
              printf("\nSimulacion finalizada correctamente.\n");
-             break;
+            break;
+
 
 
             

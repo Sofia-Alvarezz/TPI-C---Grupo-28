@@ -17,13 +17,19 @@ typedef struct {
     double aceleracion;
 } EstadoCohete_t;
 
-void calcularFase1(EstadoCohete_t *cohete);
+typedef struct {
+    double aceleracionFase1;
+    double aceleracionFase2;
+    double alturaApagado;
+} Configuracion_t;
 
-void calcularFase2(EstadoCohete_t *cohete);
+void calcularFase1(EstadoCohete_t *cohete, Configuracion_t *config);
+
+void calcularFase2(EstadoCohete_t *cohete, Configuracion_t *config);
 
 double calcularAlturaMaxima(EstadoCohete_t *cohete);
 
-double calcularAceleracionMaxima(void);
+double calcularAceleracionMaxima(Configuracion_t *config);
 
 #endif
 
