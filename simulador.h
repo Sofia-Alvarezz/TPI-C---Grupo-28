@@ -17,4 +17,15 @@ typedef struct {
     double aceleracion;
 } EstadoCohete_t;
 
+void calcularFase1(EstadoCohete_t *cohete);
+
+void calcularFase2(EstadoCohete_t *cohete);
+
+double calcularAlturaMaxima(EstadoCohete_t *cohete);
+
+double calcularAceleracionMaxima(void);
+
 #endif
+
+
+
