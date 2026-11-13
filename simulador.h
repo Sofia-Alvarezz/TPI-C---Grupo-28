@@ -30,7 +30,20 @@ void calcularFase2(EstadoCohete_t *cohete, Configuracion_t *config);
 double calcularAlturaMaxima(EstadoCohete_t *cohete);
 
 double calcularAceleracionMaxima(Configuracion_t *config);
+#define MAX_HISTORIAL 10
 
+typedef struct {
+    Configuracion_t config;
+    double tiempoTotal;
+    double velocidadApagado;
+    double alturaMaxima;
+    double aceleracionMaxima;
+} Simulacion_t;
+
+void guardarEnHistorial(Simulacion_t historial[], int *cantidad, Configuracion_t *config,
+                        EstadoCohete_t *cohete, double alturaMaxima, double aceleracionMaxima);
+
+void mostrarHistorial(Simulacion_t historial[], int cantidad);
 #endif
 
 

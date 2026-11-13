@@ -15,7 +15,8 @@ int main() {
     double alturaMaxima;
     double aceleracionMaxima;
     int simulacionRealizada = 0;
-
+    Simulacion_t historial[MAX_HISTORIAL];
+    int cantidadHistorial = 0;
     do {
         printf("\n=== SIMULADOR ARTEMIS SLS ===\n");
         printf("1. Configurar lanzamiento\n");
@@ -95,7 +96,8 @@ int main() {
              aceleracionMaxima = calcularAceleracionMaxima(&config);
 
              simulacionRealizada = 1;
-
+             guardarEnHistorial(historial, &cantidadHistorial, &config, &cohete,
+                                alturaMaxima, aceleracionMaxima);
              printf("\nSimulacion finalizada correctamente.\n");
             break;
 
@@ -117,7 +119,7 @@ int main() {
 
 
             case 4:
-                printf("Ver historial\n");
+                mostrarHistorial(historial, cantidadHistorial);
                 break;
 
             case 0:
