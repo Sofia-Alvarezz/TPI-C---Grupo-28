@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include "simulador.h"
+#include <math.h>
 
 int main() {
     int opcion;
@@ -24,7 +25,13 @@ int main() {
         printf("0. Salir\n");
 
         printf("\nIngrese una opcion: ");
-        scanf("%d", &opcion);
+        if (scanf("%d", &opcion) != 1) {
+         printf("\nError: debe ingresar un numero.\n");
+         int caracter;
+         while ((caracter = getchar()) != '\n' && caracter != EOF) {
+         }
+         continue;
+        }
 
         switch (opcion) {
             
@@ -58,7 +65,11 @@ int main() {
              alturaFase1 = ALTURA_INICIAL + VELOCIDAD_INICIAL * TIEMPO_FASE1 + 0.5 * nuevaConfig.aceleracionFase1 * TIEMPO_FASE1 * TIEMPO_FASE1;
              if (nuevaConfig.aceleracionFase1 > 0 &&
              nuevaConfig.aceleracionFase2 > 0 &&
-             nuevaConfig.alturaApagado > alturaFase1) {
+             nuevaConfig.alturaApagado > alturaFase1 &&
+             isfinite(nuevaConfig.aceleracionFase1) &&
+             isfinite(nuevaConfig.aceleracionFase2) &&
+             isfinite(nuevaConfig.alturaApagado) &&
+             isfinite(alturaFase1)) {
              config = nuevaConfig;
              simulacionRealizada = 0;
              printf("\nConfiguracion guardada correctamente.\n");

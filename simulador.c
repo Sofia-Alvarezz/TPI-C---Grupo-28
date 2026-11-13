@@ -19,10 +19,7 @@ void calcularFase2(EstadoCohete_t *cohete, Configuracion_t *config) {
 
  distancia = config->alturaApagado - cohete->altura;
 
- velocidadFinal = sqrt(
-    cohete->velocidad * cohete->velocidad +
-    2 * config->aceleracionFase2 * distancia
- );
+ velocidadFinal = sqrt(cohete->velocidad * cohete->velocidad + 2 * config->aceleracionFase2 * distancia);
 
  tiempoFase2 = (velocidadFinal - cohete->velocidad) / config->aceleracionFase2;
 
@@ -30,13 +27,8 @@ void calcularFase2(EstadoCohete_t *cohete, Configuracion_t *config) {
  cohete->altura = config->alturaApagado;
  cohete->velocidad = velocidadFinal;
  cohete->aceleracion = config->aceleracionFase2;
- tiempoFase2 = (velocidadFinal - cohete->velocidad) / ACELERACION_FASE2;
-
- cohete->tiempo = cohete->tiempo + tiempoFase2;
- cohete->altura = ALTURA_APAGADO;
- cohete->velocidad = velocidadFinal;
- cohete->aceleracion = ACELERACION_FASE2;
 }
+
 
 double calcularAceleracionMaxima(Configuracion_t *config) {
  double aceleracionMaxima;
